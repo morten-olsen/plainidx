@@ -1,8 +1,8 @@
-import { SystemFileSystem } from '@plaindb/fs-system';
-import { CorePlugin } from '@plaindb/plugin-core';
-import { MarkdownPlugin } from '@plaindb/plugin-markdown';
+import { SystemFileSystem } from '@plainidx/fs-system';
+import { CorePlugin } from '@plainidx/plugin-core';
+import { MarkdownPlugin } from '@plainidx/plugin-markdown';
 import { resolve } from 'path';
-import { PlainDB } from '../../plaindb/dist/exports.js';
+import { PlainDB } from '../../plainidx/dist/exports.js';
 
 const fs = new SystemFileSystem({
   cwd: resolve('/Users/alice/Documents/Exo'),

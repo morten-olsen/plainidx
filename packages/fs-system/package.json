@@ -1,5 +1,5 @@
 {
-  "name": "@plaindb/fs-system",
+  "name": "@plainidx/fs-system",
   "version": "1.0.0",
   "type": "module",
   "main": "dist/exports.js",
@@ -10,7 +10,7 @@
     "build": "tsc --build"
   },
   "dependencies": {
-    "@plaindb/plaindb": "workspace:*",
+    "@plainidx/plainidx": "workspace:*",
     "glob": "^11.0.0"
   },
   "devDependencies": {

@@ -1,4 +1,4 @@
-import { DatabaseMigration } from '@plaindb/plaindb';
+import { DatabaseMigration } from '@plainidx/plainidx';
 
 const migrations: DatabaseMigration[] = [
   {

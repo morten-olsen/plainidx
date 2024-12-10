@@ -1,5 +1,5 @@
 {
-  "name": "@plaindb/plaindb",
+  "name": "@plainidx/plainidx",
   "version": "1.0.0",
   "type": "module",
   "main": "dist/exports.js",

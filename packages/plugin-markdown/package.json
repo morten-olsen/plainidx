@@ -1,5 +1,5 @@
 {
-  "name": "@plaindb/plugin-markdown",
+  "name": "@plainidx/plugin-markdown",
   "version": "1.0.0",
   "type": "module",
   "main": "dist/exports.js",
@@ -10,8 +10,8 @@
     "build": "tsc --build"
   },
   "dependencies": {
-    "@plaindb/plaindb": "workspace:*",
-    "@plaindb/plugin-core": "workspace:*",
+    "@plainidx/plainidx": "workspace:*",
+    "@plainidx/plugin-core": "workspace:*",
     "lodash": "^4.17.21",
     "mdast-util-to-string": "^4.0.0",
     "remark-behead": "^3.1.0",

@@ -1,10 +1,10 @@
 {
-  "name": "@plaindb/tools-cli",
+  "name": "@plainidx/tools-cli",
   "version": "1.0.0",
   "type": "module",
   "main": "dist/exports.js",
   "bin": {
-    "plaindb": "bin/cli.mjs"
+    "plainidx": "bin/cli.mjs"
   },
   "files": [
     "bin",
@@ -14,10 +14,10 @@
     "build": "tsc --build"
   },
   "dependencies": {
-    "@plaindb/fs-system": "workspace:*",
-    "@plaindb/plaindb": "workspace:*",
-    "@plaindb/plugin-core": "workspace:*",
-    "@plaindb/plugin-markdown": "workspace:*",
+    "@plainidx/fs-system": "workspace:*",
+    "@plainidx/plainidx": "workspace:*",
+    "@plainidx/plugin-core": "workspace:*",
+    "@plainidx/plugin-markdown": "workspace:*",
     "sqlite3": "^5.1.7"
   },
   "devDependencies": {

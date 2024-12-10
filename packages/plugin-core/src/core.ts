@@ -1,4 +1,4 @@
-import { createActionApiRoute, type Database, Plugin, z } from '@plaindb/plaindb';
+import { createActionApiRoute, type Database, Plugin, z } from '@plainidx/plainidx';
 import { migrations } from './migrations/migrations.js';
 
 class CorePlugin extends Plugin {

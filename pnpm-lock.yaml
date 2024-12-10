@@ -41,9 +41,9 @@ importers:
 
   packages/fs-memory:
     dependencies:
-      '@plaindb/plaindb':
+      '@plainidx/plainidx':
         specifier: workspace:*
-        version: link:../plaindb
+        version: link:../plainidx
     devDependencies:
       '@types/node':
         specifier: ^22.10.1
@@ -54,9 +54,9 @@ importers:
 
   packages/fs-system:
     dependencies:
-      '@plaindb/plaindb':
+      '@plainidx/plainidx':
         specifier: workspace:*
-        version: link:../plaindb
+        version: link:../plainidx
       glob:
         specifier: ^11.0.0
         version: 11.0.0
@@ -68,7 +68,7 @@ importers:
         specifier: ^5.7.2
         version: 5.7.2
 
-  packages/plaindb:
+  packages/plainidx:
     dependencies:
       knex:
         specifier: ^3.1.0
@@ -89,9 +89,9 @@ importers:
 
   packages/plugin-core:
     dependencies:
-      '@plaindb/plaindb':
+      '@plainidx/plainidx':
         specifier: workspace:*
-        version: link:../plaindb
+        version: link:../plainidx
     devDependencies:
       '@types/node':
         specifier: ^22.10.1
@@ -102,10 +102,10 @@ importers:
 
   packages/plugin-markdown:
     dependencies:
-      '@plaindb/plaindb':
+      '@plainidx/plainidx':
         specifier: workspace:*
-        version: link:../plaindb
-      '@plaindb/plugin-core':
+        version: link:../plainidx
+      '@plainidx/plugin-core':
         specifier: workspace:*
         version: link:../plugin-core
       lodash:
@@ -160,16 +160,16 @@ importers:
 
   packages/tests:
     dependencies:
-      '@plaindb/fs-memory':
+      '@plainidx/fs-memory':
         specifier: workspace:*
         version: link:../fs-memory
-      '@plaindb/plaindb':
+      '@plainidx/plainidx':
         specifier: workspace:*
-        version: link:../plaindb
-      '@plaindb/plugin-core':
+        version: link:../plainidx
+      '@plainidx/plugin-core':
         specifier: workspace:*
         version: link:../plugin-core
-      '@plaindb/plugin-markdown':
+      '@plainidx/plugin-markdown':
         specifier: workspace:*
         version: link:../plugin-markdown
       '@pnpm/find-workspace-dir':
@@ -194,16 +194,16 @@ importers:
 
   packages/tools-cli:
     dependencies:
-      '@plaindb/fs-system':
+      '@plainidx/fs-system':
         specifier: workspace:*
         version: link:../fs-system
-      '@plaindb/plaindb':
+      '@plainidx/plainidx':
         specifier: workspace:*
-        version: link:../plaindb
-      '@plaindb/plugin-core':
+        version: link:../plainidx
+      '@plainidx/plugin-core':
         specifier: workspace:*
         version: link:../plugin-core
-      '@plaindb/plugin-markdown':
+      '@plainidx/plugin-markdown':
         specifier: workspace:*
         version: link:../plugin-markdown
       sqlite3:

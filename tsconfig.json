@@ -2,7 +2,7 @@
   "include": [],
   "references": [
     {
-      "path": "./packages/plaindb"
+      "path": "./packages/plainidx"
     },
     {
       "path": "./packages/fs-system"

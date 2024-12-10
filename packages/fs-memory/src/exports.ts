@@ -1,4 +1,4 @@
-import { FileSystem } from '@plaindb/plaindb';
+import { FileSystem } from '@plainidx/plainidx';
 
 type MemoryFileSystemOptions = {
   documents?: Record<string, Buffer>;

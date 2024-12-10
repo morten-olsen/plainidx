@@ -1,6 +1,6 @@
-import { createActionApiRoute, Document, Plugin, z } from '@plaindb/plaindb';
+import { createActionApiRoute, Document, Plugin, z } from '@plainidx/plainidx';
 import { MarkdownAst } from './utils/markdown-ast.js';
-import { CorePlugin } from '@plaindb/plugin-core';
+import { CorePlugin } from '@plainidx/plugin-core';
 
 type MarkdownSubPlugin = {
   process: (ast: MarkdownAst) => Promise<void>;

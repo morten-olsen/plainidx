@@ -1,4 +1,4 @@
-import { FileSystem } from '@plaindb/plaindb';
+import { FileSystem } from '@plainidx/plainidx';
 import { existsSync } from 'fs';
 import { mkdir, readFile, writeFile } from 'fs/promises';
 import { dirname, resolve } from 'path';

@@ -1,4 +1,4 @@
-export { PlainDB } from './plaindb/plaindb.js';
+export { PlainDB } from './plainidx/plainidx.js';
 export { FileSystem } from './filesystem/filesystem.js';
 export { Documents } from './documents/documents.js';
 export { Document } from './documents/documents.document.js';

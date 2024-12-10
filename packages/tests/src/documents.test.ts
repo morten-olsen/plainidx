@@ -1,8 +1,8 @@
 import { describe, it } from 'vitest';
-import { CorePlugin } from '@plaindb/plugin-core';
-import { MarkdownPlugin } from '@plaindb/plugin-markdown';
-import { PlainDB } from '../../plaindb/dist/exports.js';
-import { MemoryFileSystem } from '@plaindb/fs-memory';
+import { CorePlugin } from '@plainidx/plugin-core';
+import { MarkdownPlugin } from '@plainidx/plugin-markdown';
+import { PlainDB } from '../../plainidx/dist/exports.js';
+import { MemoryFileSystem } from '@plainidx/fs-memory';
 
 describe('documents', () => {
   it('should be able to create a document', async () => {

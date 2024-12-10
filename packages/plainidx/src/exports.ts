@@ -8,3 +8,5 @@ export { Plugin } from './plugins/plugin/plugin.js';
 export { Databases, DatabaseMigration } from './databases/databases.js';
 export * from 'zod';
 export { type Knex as Database } from 'knex';
+export { Editor } from './editor/editor.js';
+export { EditorWorkspace } from './editor/editor.workspace.js';

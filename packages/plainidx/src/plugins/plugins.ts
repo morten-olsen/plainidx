@@ -3,6 +3,7 @@ import { Documents } from '../documents/documents.js';
 import { Databases } from '../databases/databases.js';
 import { Plugin, PluginConstructor } from './plugin/plugin.js';
 import { z, ZodSchema } from 'zod';
+import { Editor } from '../editor/editor.js';
 
 type PluginsOptions = {
   documents: Documents;
@@ -34,6 +35,12 @@ class Plugins {
     const document = await this.#options.documents.get(`.db/plugins/${plugin.name}/config.json`);
     document.data = Buffer.from(JSON.stringify(plugin.configs));
     await document.save();
+  };
+
+  public setupUI = (editor: Editor) => {
+    for (const plugin of this.#plugins.values()) {
+      plugin.setupUI?.(editor);
+    }
   };
 
   public get = async <T extends Plugin>(plugin: PluginConstructor<any, any, T>): Promise<T> => {
@@ -88,8 +95,8 @@ class Plugins {
       : undefined,
   ): Promise<
     Exclude<Exclude<TPlugin['actions'], undefined>[TAction]['output'], undefined> extends ZodSchema
-      ? z.infer<Exclude<Exclude<TPlugin['actions'], undefined>[TAction]['output'], undefined>>
-      : undefined
+    ? z.infer<Exclude<Exclude<TPlugin['actions'], undefined>[TAction]['output'], undefined>>
+    : undefined
   > => {
     const instance = await this.get(plugin);
     const { actions } = instance;

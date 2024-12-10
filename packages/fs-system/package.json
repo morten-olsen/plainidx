@@ -10,6 +10,7 @@
     "build": "tsc --build"
   },
   "dependencies": {
+    "@plainidx/configs": "workspace:*",
     "@plainidx/plainidx": "workspace:*",
     "glob": "^11.0.0"
   },

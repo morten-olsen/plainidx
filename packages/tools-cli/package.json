@@ -21,6 +21,7 @@
     "sqlite3": "^5.1.7"
   },
   "devDependencies": {
+    "@plainidx/configs": "workspace:*",
     "@types/node": "^22.10.1",
     "typescript": "^5.7.2"
   }

@@ -18,6 +18,9 @@
     },
     {
       "path": "./packages/plugin-markdown"
+    },
+    {
+      "path": "./packages/platform-react"
     }
   ]
 }

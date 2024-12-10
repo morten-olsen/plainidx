@@ -12,10 +12,7 @@ if (!root) {
 const packages = await findWorkspacePackages(root);
 
 const alias = Object.fromEntries(
-  packages.map(({ dir, manifest }) => [
-    manifest.name!,
-    resolve(dir, 'src', 'exports.ts'),
-  ]),
+  packages.map(({ dir, manifest }) => [manifest.name || '_unknown', resolve(dir, 'src', 'exports.ts')]),
 );
 
 export default defineConfig({

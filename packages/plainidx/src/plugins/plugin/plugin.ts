@@ -4,6 +4,7 @@ import { EventEmitter } from '../../utils/eventemitter.js';
 import { Plugins } from '../plugins.js';
 import { z, ZodSchema } from 'zod';
 import { PluginActionApi } from './plugin.api.js';
+import { Editor } from '../../editor/editor.js';
 
 type PluginOptions<TLocalConfig extends ZodSchema = ZodSchema, TSharedConfig extends ZodSchema = ZodSchema> = {
   plugins: Plugins;
@@ -64,6 +65,7 @@ abstract class Plugin<
   public onUnload?: () => Promise<void>;
   public onLoaded?: () => Promise<void>;
   public process?: (document: Document) => Promise<void>;
+  public setupUI?: (editor: Editor) => Promise<void>;
 
   /*public getPlugin = async <T extends Plugin>(plugin: new (...args: any) => T): Promise<
     T['api'] extends (...args: any[]) => infer R ? R : never
@@ -81,8 +83,8 @@ abstract class Plugin<
       : undefined,
   ): Promise<
     Exclude<Exclude<TPlugin['actions'], undefined>[TAction]['output'], undefined> extends ZodSchema
-      ? z.infer<Exclude<Exclude<TPlugin['actions'], undefined>[TAction]['output'], undefined>>
-      : undefined
+    ? z.infer<Exclude<Exclude<TPlugin['actions'], undefined>[TAction]['output'], undefined>>
+    : undefined
   > => {
     const { plugins } = this.#options;
     const instance = await plugins.get(plugin);

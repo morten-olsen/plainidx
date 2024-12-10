@@ -1,0 +1,20 @@
+{
+  "name": "@plaindb/tests",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "@plaindb/fs-memory": "workspace:*",
+    "@plaindb/plaindb": "workspace:*",
+    "@plaindb/plugin-core": "workspace:*",
+    "@plaindb/plugin-markdown": "workspace:*",
+    "@pnpm/find-workspace-dir": "^900.0.1",
+    "sqlite3": "^5.1.7",
+    "vitest": "^2.1.8"
+  },
+  "devDependencies": {
+    "@pnpm/find-workspace-packages": "^6.0.9",
+    "@types/node": "^22.10.1",
+    "typescript": "^5.7.2"
+  }
+}

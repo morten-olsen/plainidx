@@ -1,0 +1,23 @@
+{
+  "include": [],
+  "references": [
+    {
+      "path": "./packages/plaindb"
+    },
+    {
+      "path": "./packages/fs-system"
+    },
+    {
+      "path": "./packages/fs-memory"
+    },
+    {
+      "path": "./packages/tools-cli"
+    },
+    {
+      "path": "./packages/plugin-core"
+    },
+    {
+      "path": "./packages/plugin-markdown"
+    }
+  ]
+}

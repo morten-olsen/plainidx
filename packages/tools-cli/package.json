@@ -1,0 +1,27 @@
+{
+  "name": "@plaindb/tools-cli",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "dist/exports.js",
+  "bin": {
+    "plaindb": "bin/cli.mjs"
+  },
+  "files": [
+    "bin",
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "dependencies": {
+    "@plaindb/fs-system": "workspace:*",
+    "@plaindb/plaindb": "workspace:*",
+    "@plaindb/plugin-core": "workspace:*",
+    "@plaindb/plugin-markdown": "workspace:*",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "typescript": "^5.7.2"
+  }
+}

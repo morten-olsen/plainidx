@@ -1,0 +1,20 @@
+{
+  "name": "@plaindb/fs-system",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "dist/exports.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "dependencies": {
+    "@plaindb/plaindb": "workspace:*",
+    "glob": "^11.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "typescript": "^5.7.2"
+  }
+}

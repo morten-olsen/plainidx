@@ -5,15 +5,15 @@ const migrations: DatabaseMigration[] = [
     name: 'init',
     up: async (db) => {
       await db.schema.createTable('tags', (table) => {
-        table.string('tag').notNullable();
-        table.string('document').notNullable();
-        table.primary(['tag', 'document']);
-        table.index('document');
-        table.index('tag');
+        table.string('name').notNullable();
+        table.string('location').notNullable();
+        table.primary(['name', 'location']);
+        table.index('location');
+        table.index('name');
       });
 
       await db.schema.createTable('titles', (table) => {
-        table.string('document').primary().notNullable();
+        table.string('location').primary().notNullable();
         table.string('title').notNullable();
       });
     },

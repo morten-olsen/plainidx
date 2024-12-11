@@ -1,5 +1,5 @@
 {
-  "name": "@plainidx/react",
+  "name": "@plainidx/client",
   "version": "1.0.0",
   "type": "module",
   "main": "dist/exports.js",
@@ -11,11 +11,10 @@
   },
   "devDependencies": {
     "@plainidx/configs": "workspace:*",
-    "@types/node": "^22.10.1",
-    "@types/react": "^19.0.1",
     "typescript": "^5.7.2"
   },
   "dependencies": {
-    "@plainidx/plainidx": "workspace:*"
+    "@plainidx/base": "workspace:*",
+    "nanoid": "^5.0.9"
   }
 }

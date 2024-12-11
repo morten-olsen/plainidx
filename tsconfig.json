@@ -2,6 +2,9 @@
   "include": [],
   "references": [
     {
+      "path": "./packages/base"
+    },
+    {
       "path": "./packages/plainidx"
     },
     {
@@ -18,9 +21,6 @@
     },
     {
       "path": "./packages/plugin-markdown"
-    },
-    {
-      "path": "./packages/platform-react"
     }
   ]
 }

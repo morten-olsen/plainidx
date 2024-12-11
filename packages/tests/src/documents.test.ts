@@ -1,8 +1,8 @@
 import { describe, it } from 'vitest';
-import { CorePlugin } from '@plainidx/plugin-core';
-import { MarkdownPlugin } from '@plainidx/plugin-markdown';
+import { core, CorePlugin } from '@plainidx/plugin-core';
 import { PlainDB } from '../../plainidx/dist/exports.js';
 import { MemoryFileSystem } from '@plainidx/fs-memory';
+import { markdownPlugin } from '@plainidx/plugin-markdown';
 
 describe('documents', () => {
   it('should be able to create a document', async () => {
@@ -19,34 +19,24 @@ describe('documents', () => {
       }),
     });
 
-    await plugins.add([MarkdownPlugin]);
+    await plugins.add([core, markdownPlugin]);
 
-    const tags1 = await plugins.action(CorePlugin, 'getTags', undefined);
+    const plugin = await plugins.get(CorePlugin);
 
-    console.log('Done', tags1);
+    {
+      const tags = await plugin.actions.getTags({});
+      console.log(tags);
+    }
 
-    const demoDocument = await documents.get('hello/world.md');
+    const document = await documents.get('foo/bar.md');
 
-    demoDocument.data = Buffer.from(`
-# Hello World
+    document.data = Buffer.from(['# Hello World', '', ':tag[test]'].join('\n'));
 
-:tag[hello]
-`);
-
-    await demoDocument.save();
-
-    const tags2 = await plugins.action(CorePlugin, 'getTags', undefined);
-    console.log('Done', tags2);
-
-    demoDocument.data = Buffer.from(`
-# Hello World
-
-:tag[world]
-`);
-    await demoDocument.save();
-
-    const tags3 = await plugins.action(CorePlugin, 'getTags', undefined);
-    console.log('Done', tags3);
+    await document.save();
+    {
+      const tags = await plugin.actions.getTags({});
+      console.log(tags);
+    }
 
     await close();
   });

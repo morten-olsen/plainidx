@@ -1,9 +1,8 @@
 import { Document } from '../documents/documents.document.js';
 import { Documents } from '../documents/documents.js';
 import { Databases } from '../databases/databases.js';
-import { Plugin, PluginConstructor } from './plugin/plugin.js';
-import { z, ZodSchema } from 'zod';
-import { Editor } from '../editor/editor.js';
+import { Plugin, PluginFactory } from './plugin/plugin.js';
+import { Manifest } from '@plainidx/base';
 
 type PluginsOptions = {
   documents: Documents;
@@ -12,7 +11,7 @@ type PluginsOptions = {
 
 class Plugins {
   #options: PluginsOptions;
-  #plugins: Map<PluginConstructor, Plugin>;
+  #plugins: Map<string, Plugin<any>>;
 
   constructor(options: PluginsOptions) {
     this.#options = options;
@@ -22,35 +21,20 @@ class Plugins {
 
   #onSave = async (document: Document) => {
     for (const plugin of this.#plugins.values()) {
-      await plugin.process?.(document);
+      if (plugin.backend) {
+        await plugin?.process?.(document);
+      }
     }
   };
 
-  #load = async (plugins: Plugin[]) => {
-    await Promise.all(plugins.map((plugin) => plugin.onLoad?.()));
-    plugins.forEach((plugin) => plugin.onLoaded?.());
-  };
-
-  #saveConfig = async (plugin: Plugin) => {
-    const document = await this.#options.documents.get(`.db/plugins/${plugin.name}/config.json`);
-    document.data = Buffer.from(JSON.stringify(plugin.configs));
-    await document.save();
-  };
-
-  public setupUI = (editor: Editor) => {
-    for (const plugin of this.#plugins.values()) {
-      plugin.setupUI?.(editor);
+  public get = async <TManifest extends Manifest>(manifest: TManifest): Promise<Plugin<TManifest>> => {
+    if (!this.#plugins.has(manifest.id)) {
+      throw new Error(`Plugin ${manifest.id} is not loaded`);
     }
+    return this.#plugins.get(manifest.id) as Plugin<TManifest>;
   };
 
-  public get = async <T extends Plugin>(plugin: PluginConstructor<any, any, T>): Promise<T> => {
-    if (!this.#plugins.has(plugin)) {
-      await this.add([plugin]);
-    }
-    return this.#plugins.get(plugin) as T;
-  };
-
-  public add = async (plugins: PluginConstructor[]) => {
+  public add = async (plugins: PluginFactory<any>[]) => {
     const { documents, databases } = this.#options;
     const configs = await Promise.all(
       plugins.map(async (plugin) => {
@@ -58,57 +42,51 @@ class Plugins {
         return JSON.parse(document.data.toString() || '{}');
       }),
     );
-    const instances = plugins.map(
-      (Plugin, i) =>
-        new Plugin({
-          plugins: this,
+    const instances = await Promise.all(
+      plugins.map(async (plugin, i) => {
+        const instance = plugin({
+          config: configs[i],
           documents,
-          databases,
-          configs: configs[i],
-        }),
+          getPlugin: this.get,
+          getDb: async (name, migrations) => {
+            return databases.get({
+              name: `plugins/${plugin.manifest.id}/${name}`,
+              migrations,
+            });
+          },
+        });
+        return instance as Plugin<any>;
+      }),
     );
-    await this.#load(instances);
-    for (let i = 0; i < plugins.length; i++) {
-      const instance = instances[i];
-      const plugin = plugins[i];
-      instance.on('configChange', this.#saveConfig.bind(null, instance));
-      this.#plugins.set(plugin, instance);
+    for (const instance of instances) {
+      this.#plugins.set(instance.manifest.id, instance);
     }
+    await Promise.all(
+      instances.map(async (instance) => {
+        if ('load' in instance) {
+          await instance.load?.();
+        }
+      }),
+    );
   };
 
   public process = async (document: Document) => {
     for (const plugin of this.#plugins.values()) {
-      await plugin.process?.(document);
+      if (plugin.backend) {
+        await plugin?.process?.(document);
+      }
     }
   };
 
   public unload = async () => {
-    await Promise.all(this.#plugins.values().map((plugin) => plugin.onUnload?.()));
+    await Promise.all(
+      this.#plugins.values().map((plugin) => {
+        if (plugin.backend) {
+          return plugin.unload?.();
+        }
+      }),
+    );
     this.#plugins = new Map();
-  };
-
-  public action = async <TPlugin extends Plugin<any, any, any>, TAction extends keyof TPlugin['actions']>(
-    plugin: new (...args: any[]) => TPlugin,
-    action: TAction,
-    input: Exclude<Exclude<TPlugin['actions'], undefined>[TAction]['input'], undefined> extends ZodSchema
-      ? z.infer<Exclude<Exclude<TPlugin['actions'], undefined>[TAction]['input'], undefined>>
-      : undefined,
-  ): Promise<
-    Exclude<Exclude<TPlugin['actions'], undefined>[TAction]['output'], undefined> extends ZodSchema
-    ? z.infer<Exclude<Exclude<TPlugin['actions'], undefined>[TAction]['output'], undefined>>
-    : undefined
-  > => {
-    const instance = await this.get(plugin);
-    const { actions } = instance;
-    if (!actions) {
-      throw new Error(`Plugin ${plugin.name} does not have actions`);
-    }
-    const actionDef = actions[action];
-    if (!actionDef) {
-      throw new Error(`Plugin ${plugin.name} does not have action ${String(action)}`);
-    }
-    actionDef.input?.parse(input);
-    return actionDef.handle?.(input) as any;
   };
 }
 

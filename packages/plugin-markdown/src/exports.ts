@@ -1,1 +1,2 @@
-export { MarkdownPlugin } from './markdown.js';
+export { markdownPlugin } from './markdown.js';
+export { MarkdownPlugin } from './manifest.js';
